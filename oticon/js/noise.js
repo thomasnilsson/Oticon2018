@@ -7,6 +7,8 @@ var h2 = 250
 var boundaries = {bottom: h2 - 60, top: 20, left: 60, right: w2 - 20}
 var innerPadding = 0.1
 
+var rand = Math.random()
+
 //Define quantize scale to sort data values into buckets of color
 let color = ['#27586B', '#003549', '#05425A', '#52707C', '#888B8C']
 
@@ -79,7 +81,7 @@ d3.json("data/boroughs.geojson", (error, json) => {
 		}
 
 		let n = data.length > 0 ? data.length : 1
-		counts = counts.map(c => (c / n) * 500 * Math.random())
+		counts = counts.map(c => (c / n) * 500 * rand)
 
 		x = d3.scaleBand()
 		  .domain(hours)
@@ -183,7 +185,7 @@ d3.json("data/boroughs.geojson", (error, json) => {
 
 			let n = dataBrushed.length > 0 ? dataBrushed.length : 1
 
-			counts = counts.map(c => (c / n) * 500 * Math.random())
+			counts = counts.map(c => (c / n) * 500 * rand)
 
 			y.domain([0, d3.max(counts)])
 			yAxis = d3.axisLeft(y).ticks(5)

@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Oticon Audio Explorers 2018</title>
-		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<link rel="stylesheet" href="css/foundation.css">
-		<link rel="stylesheet" href="css/custom.css">
-		<link rel="stylesheet" href="css/md/github-markdown.css">
-	</head>
-	<body>
 
-	<article class="markdown-body" >
-			<h1>Solution Design</h1>
-			<div style="width: 960px; height: 720px; margin: 10px; position: relative;">
-				<iframe 
-					allowfullscreen 
-					frameborder="0" 
-					style="width:960px; height:720px" 
-					src="https://www.lucidchart.com/documents/embeddedchart/1fc4e74c-f4ff-4ee5-8de0-82373e71fb27" 
-					id="OxTqDbNE2t~W">
-				</iframe>
-			</div>
-		</article>
-		
-		<article class="markdown-body" >
-			<img src="img/logo.jpg" style="width:20%"/>
-			<h1>Data Collected from Oticon Devices</h1>
-			<h3>Noise Level Observations in NYC</h3>
+<head>
+	<meta charset="utf-8">
+	<title>Oticon Audio Explorers 2018</title>
+	<!-- D3 Main Script -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/foundation.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/md/github-markdown.css">
 
-			<h5>Tip: <i>Use your cursor to mark an area of observations on the map.</i></h5>
-			<div align="left" id="chart1">
-			</div>
-			<div align="right" id="chart2">
-			</div>
+	<!-- MAP CSS -->
+	<link rel="stylesheet" href="map/map.css">
 
-			<h5>NB: All plots are based on randomized dummy data.</h5>
-		</article>
+</head>
 
-		<article class="markdown-body" >
-			<h1>Heading</h1>
-		</article>
-
-		<article class="markdown-body" >
-			<h1>Heading</h1>
-		</article>
-
-		<p></p>
+<body>
 
 
-	</body>
-	<script src="js/noise.js"></script>
+	<article class="markdown-body">
+		<img src="img/logo.jpg" style="width:20%" />
+		<h4>TeamName';DROP TABLE Teams;--</h4>
+	</article>
+
+	<article class="markdown-body">
+		<h1>Solution Design</h1>
+		<div align="middle" style="width: 100%; height: 720px; margin: auto; position: relative;">
+			<iframe 
+				allowfullscreen frameborder="0" 
+				style="width:960px; height:720px" 
+				src="https://www.lucidchart.com/documents/embeddedchart/1fc4e74c-f4ff-4ee5-8de0-82373e71fb27"
+			    id="OxTqDbNE2t~W">
+			</iframe>
+		</div>
+	</article>
+
+	<article class="markdown-body">
+		<h1>Data Collection</h1>
+		<h3>Global Firmware Updates</h3>
+		<div id="worldMap"></div>
+
+		<h3>Firmware Update Failures</h3>
+		<div id="crashPlot">
+			<div class="tooltip" id="tooltipCrashes" class="hidden">
+					<p><strong style="color: #FFA500">Version: </strong><span id="version"/></p>
+					<p><strong style="color: #FFA500">Failures: </strong><span id="crashes"/></p>
+				</div>
+		</div>
+
+		<h3>BONUS: Noise Level Observations in NYC</h3>
+
+		<h5>Tip:
+			<i>Use your cursor to mark an area of observations on the map.</i>
+		</h5>
+		<div align="left" id="chart1">
+		</div>
+		<div align="right" id="chart2">
+		</div>
+
+		<h5>NB: All plots are based on randomized dummy data.</h5>
+	</article>
+
+
+</body>
+<script src="js/noise.js"></script>
+<script src="js/versions.js"></script>
+<script src="js/crashes.js"></script>
+
+	<!-- MAP Scripts -->
+	<script src="http://d3js.org/queue.v1.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
+	<script src="map/d3-tip.js"></script>
+	<script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
+	<script src="map/babel.js"></script>
+
 </html>

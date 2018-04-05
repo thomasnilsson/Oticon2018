@@ -9,7 +9,7 @@ const tip = d3.tip()
   .offset([-10, 0])
   .html(d => 
     `<strong>Country: </strong><span class='details'>${d.properties.name}<br></span>
-    <strong>Using Latest Firmware: </strong><span class='details'>${parseInt(Math.random() * 100)}%</span>`);
+    <strong>Using Latest Firmware: </strong><span class='details'>${parseInt(d.population)} %</span>`);
 
 tip.direction(function(d) {
   if (d.properties.name === 'Antarctica') return 'n';
@@ -117,7 +117,7 @@ queue()
 
 function ready(error, geography, data) {
   data.forEach(d => {
-    d[colorVariable] = Number(d[colorVariable].replace(',', ''));
+    d[colorVariable] = Math.random() * 100;
   })
 
   const colorVariableValueByID = {};

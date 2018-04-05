@@ -19,14 +19,37 @@
 
 <body>
 
-
 	<article class="markdown-body">
 		<img src="img/logo.jpg" style="width:20%" />
-		<h4>TeamName';DROP TABLE Teams;--</h4>
-	</article>
+		<h3>TeamName';DROP TABLE Teams;--</h3>
+		<h6>Thomas Nilsson, Maria Lyck, Simon El-Nahas Christensen</h6>
 
-	<article class="markdown-body">
-		<h1>Solution Design</h1>
+		<h1>Problem Statement</h1>
+		When a new firmware update is available, the user has to plug their hearing device such as the Oticon OPN or the Oticon ClipConnect into their computer and use the Genie 2 updater wizard in order to install the new firmware. This is a very involved process regardless of who the end-user is, but the older end-user segment may especially find this step difficult to do themselves.
+
+		<h1>Solution Idea</h1>
+		With the rise of IoT, devices are now able to exchange information in almost any way we can think of and as such a solution has been derived which exclusively utilizes wireless communication in order to perform the firmware update. Additionally the solution makes the firmware update process independent of user interaction which will ultimately make the user experience seamless.
+
+		<h3>Key assumptions</h3>
+		<ul>
+			<li>The hearing aid cannot receive, store nor update new firmware while functioning at the same time.</li>
+			<li>Firmware updates may come out each week.</li>
+			<li>Firmware updates are relatively small (less than 1 MB). Oticon’s firmware manual states that updates are around 500 KB.</li>
+			<li>Firmware updates can be sent via BT and BLE using TCP, which ensures every packet arrives.</li>
+			<li>The users will charge their hearing devices at least once per week, and the charging window is long enough to update the firmware.</li>
+		</ul>
+
+		<h3>Proposed Solution</h3>
+		<h5>Update only while devices are charging</h5>
+		<i>Ensures the user is not interrupted while already using the devices<br></i>
+		
+		<h5>Download firmware update from an Oticon-owned GIT repository to the user’s smartphone through the Oticon ON application</h5>
+		<i>Ensures the integrity of the software, i.e. it was developed and approved by Oticon</i>
+
+		<h5>Transfer software via TCP over Bluetooth to the devices</h5>
+		<i>Ensures that the whole firmware package is transferred to the audio device (TCP), and a seamless user experience when updating firmware</i>
+
+		<h3>Infrastructure Diagram</h3>
 		<div align="middle" style="width: 100%; height: 720px; margin: auto; position: relative;">
 			<iframe 
 				allowfullscreen frameborder="0" 
@@ -35,6 +58,7 @@
 			    id="OxTqDbNE2t~W">
 			</iframe>
 		</div>
+
 	</article>
 
 	<article class="markdown-body">

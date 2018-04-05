@@ -3,13 +3,17 @@ const colorVariable = 'population';
 const geoIDVariable = 'id';
 const format = d3.format(',');
 
+let numberFormatter = x => parseInt(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 // Set tooltips
 const tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
-  .html(d => 
-    `<strong>Country: </strong><span class='details'>${d.properties.name}<br></span>
-    <strong>Using Latest Firmware: </strong><span class='details'>${parseInt(d.population)} %</span>`);
+  .html(d => `<strong>Country: </strong><span class='details'>${d.properties.name}<br></span>
+  <strong>Using Latest Firmware: </strong><span class='details'>${parseInt(d.population)}%<br></span>
+  <strong>Devices: </strong><span class='details'>${numberFormatter(d.devices)}</span>`);
+
+  
 
 tip.direction(function(d) {
   if (d.properties.name === 'Antarctica') return 'n';
@@ -123,7 +127,12 @@ function ready(error, geography, data) {
   const colorVariableValueByID = {};
 
   data.forEach(d => { colorVariableValueByID[d[geoIDVariable]] = d[colorVariable]; });
+  // for (key in data){
+  //   data[key]['devices'] = 100
+  // }
+  // data.forEach(d => console.log(d.devices))
   geography.features.forEach(d => { d[colorVariable] = colorVariableValueByID[d.id] });
+  geography.features.forEach(d => d["devices"] = Math.random() * 100000)
 
   // calculate ckmeans clusters
   // then use the max value of each cluster
@@ -138,23 +147,6 @@ function ready(error, geography, data) {
   // set the domain of the color scale based on our data
   color
     .domain(ckmeansBreaks);
-  //
-  // .domain(jenksNaturalBreaks)
-  //
-  // .domain(d3.extent(data, d => d[colorVariable]));
-  //
-  // .domain([
-  //   10000,
-  //   100000,
-  //   500000,
-  //   1000000,
-  //   5000000,
-  //   10000000,
-  //   50000000,
-  //   100000000,
-  //   500000000,
-  //   1500000000
-  // ]);
 
   svg.append('g')
     .attr('class', 'countries')

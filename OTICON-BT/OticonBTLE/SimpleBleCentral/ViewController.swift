@@ -4,6 +4,7 @@
 import UIKit
 import BlueCapKit
 import CoreBluetooth
+import Alamofire
 
 class ViewController: UIViewController, UITextViewDelegate {
     
@@ -23,9 +24,11 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var valueToWriteTextField: UITextField!
-    @IBOutlet weak var notifiedValueLabel: UILabel!
+    @IBOutlet weak var responseLabel: UITextView!
+    
     
     var dataCharacteristic : Characteristic?
+    var lastSentMessage = "NONE"
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -139,8 +142,6 @@ class ViewController: UIViewController, UITextViewDelegate {
                 self.loadingView.isHidden = true
                 self.characteristicView.isHidden = false
             }
-            //read the data from the characteristic
-            self.read()
             //Ask the characteristic to start notifying for value change
             return dataCharacteristic.startNotifying()
             }.flatMap { _ -> FutureStream<Data?> in
@@ -152,14 +153,6 @@ class ViewController: UIViewController, UITextViewDelegate {
                 }
                 //regeister to recieve a notifcation when the value of the characteristic changes and return a future that handles these notifications
                 return characteristic.receiveNotificationUpdates(capacity: 10)
-        }
-        
-        //The onSuccess method is called every time the characteristic value changes
-        dataFuture.onSuccess { data in
-            let s = String(data:data!, encoding: .utf8)
-            DispatchQueue.main.async {
-                self.notifiedValueLabel.text = "notified value is \(String(describing: s))"
-            }
         }
         
         //handle any failure in the previous chain
@@ -180,21 +173,26 @@ class ViewController: UIViewController, UITextViewDelegate {
     @IBAction func onWriteTapped(_ sender: Any) {
         self.write()
     }
-    
-    @IBAction func onRefreshTap(_ sender: Any) {
-        self.read()
-    }
+
     
     func read(){
         //read a value from the characteristic
         let readFuture = self.dataCharacteristic?.read(timeout: 5)
         readFuture?.onSuccess { (_) in
             //the value is in the dataValue property
-            let s = String(data:(self.dataCharacteristic?.dataValue)!, encoding: .utf8)
-            DispatchQueue.main.async {
-                self.valueLabel.text = "Read value is \(String(describing: s))"
-                print(self.valueLabel.text!)
+            if let s = String(data:(self.dataCharacteristic?.dataValue)!, encoding: .utf8) {
+                DispatchQueue.main.async {
+                    print("READING...")
+                    print("LAST SENT MSG")
+                    print(self.lastSentMessage)
+                    print("REPONSE FROM SERVER:")
+                    print(s)
+                    let txt = self.lastSentMessage == s ? "UPDATE SUCCEEDED" : "UPDATE FAILED"
+                    self.valueLabel.text = txt
+                    self.responseLabel.text = "Reponse from device:\n" + s
+                }
             }
+            
         }
         readFuture?.onFailure { (_) in
             self.valueLabel.text = "read error"
@@ -208,12 +206,41 @@ class ViewController: UIViewController, UITextViewDelegate {
         }
         //write a value to the characteristic
         let writeFuture = self.dataCharacteristic?.write(data:text.data(using: .utf8)!)
+        lastSentMessage = text
         writeFuture?.onSuccess(completion: { (_) in
             print("write succes")
+            self.read()
+            
         })
         writeFuture?.onFailure(completion: { (e) in
             print("write failed")
         })
+    }
+    
+    @IBAction func downloadPressed(_ sender: Any) {
+        downloadFile()
+    }
+    
+    func downloadFile() {
+        Alamofire.request("https://httpbin.org/ip").response { response in
+            
+            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                print("Data: \(utf8Text)")
+                self.lastSentMessage = utf8Text
+                
+                //write a value to the characteristic
+                let writeFuture = self.dataCharacteristic?.write(data:utf8Text.data(using: .utf8)!)
+                writeFuture?.onSuccess(completion: { (_) in
+                    print("write succes")
+                    print(utf8Text)
+                    self.read()
+                })
+                writeFuture?.onFailure(completion: { (e) in
+                    print("write failed")
+                })
+                
+            }
+        }
     }
     
 }

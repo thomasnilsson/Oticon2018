@@ -4,7 +4,7 @@ var bleno = require('../..');
 
 var BlenoCharacteristic = bleno.Characteristic;
 
-var EchoCharacteristic = function() {
+var EchoCharacteristic = function () {
   EchoCharacteristic.super_.call(this, {
     uuid: 'ec0e',
     properties: ['read', 'write', 'notify'],
@@ -17,16 +17,16 @@ var EchoCharacteristic = function() {
 
 util.inherits(EchoCharacteristic, BlenoCharacteristic);
 
-EchoCharacteristic.prototype.onReadRequest = function(offset, callback) {
-  console.log('EchoCharacteristic - onReadRequest: value = ' + this._value.toString('hex'));
+EchoCharacteristic.prototype.onReadRequest = function (offset, callback) {
+  console.log('EchoCharacteristic - onReadRequest: value = ' + this._value.toString());
 
   callback(this.RESULT_SUCCESS, this._value);
 };
 
-EchoCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
+EchoCharacteristic.prototype.onWriteRequest = function (data, offset, withoutResponse, callback) {
   this._value = data;
 
-  console.log('EchoCharacteristic - onWriteRequest: value = ' + this._value.toString('hex'));
+  console.log('EchoCharacteristic - onWriteRequest: value = ' + this._value.toString());
 
   if (this._updateValueCallback) {
     console.log('EchoCharacteristic - onWriteRequest: notifying');
@@ -37,13 +37,13 @@ EchoCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResp
   callback(this.RESULT_SUCCESS);
 };
 
-EchoCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
+EchoCharacteristic.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   console.log('EchoCharacteristic - onSubscribe');
 
   this._updateValueCallback = updateValueCallback;
 };
 
-EchoCharacteristic.prototype.onUnsubscribe = function() {
+EchoCharacteristic.prototype.onUnsubscribe = function () {
   console.log('EchoCharacteristic - onUnsubscribe');
 
   this._updateValueCallback = null;

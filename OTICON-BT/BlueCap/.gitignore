@@ -1,0 +1,8 @@
+**/xcuserdata
+*.xcworkspace
+Pods/
+build/
+Checkouts/
+Cartfile.resolved
+Podfile.lock
+.DS_Store

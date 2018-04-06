@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C1CA99C20781EBB0045801F /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C1CA99320781EAB0045801F /* CryptoSwift.framework */; };
+		3C1CA99D20781EBB0045801F /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C1CA99320781EAB0045801F /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CF1C0662077B7090024F11D /* BlueCapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF1C0652077B6FF0024F11D /* BlueCapKit.framework */; };
 		3CF1C0672077B7090024F11D /* BlueCapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF1C0652077B6FF0024F11D /* BlueCapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3CFCF7872077F6B500CD46C4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFCF77A2077F6A900CD46C4 /* Alamofire.framework */; };
@@ -20,6 +22,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3C1CA99220781EAB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		3C1CA99420781EAB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 75211F92207249D8004E41F8;
+			remoteInfo = "CryptoSwift-TestHostApp";
+		};
+		3C1CA99620781EAB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		3C1CA99820781EAB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
+			remoteInfo = TestsPerformance;
+		};
+		3C1CA99A20781EAB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
+			remoteInfo = "TestsPerformance-iOS";
+		};
+		3C1CA99E20781EBB0045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
 		3CF1C0642077B6FF0024F11D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3CF1C0602077B6FF0024F11D /* BlueCapKit.xcodeproj */;
@@ -99,6 +143,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3C1CA99D20781EBB0045801F /* CryptoSwift.framework in Embed Frameworks */,
 				3CF1C0672077B7090024F11D /* BlueCapKit.framework in Embed Frameworks */,
 				3CFCF7882077F6B500CD46C4 /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -108,6 +153,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = ../CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		3CF1C0602077B6FF0024F11D /* BlueCapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlueCapKit.xcodeproj; path = ../BlueCap/BlueCapKit.xcodeproj; sourceTree = "<group>"; };
 		3CFCF76E2077F6A900CD46C4 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		7B8AEEDF1E34F2DC00B09856 /* OticonBTLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OticonBTLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,12 +174,25 @@
 				3CF1C0662077B7090024F11D /* BlueCapKit.framework in Frameworks */,
 				3CFCF7872077F6B500CD46C4 /* Alamofire.framework in Frameworks */,
 				7B8AEEF81E34F3D700B09856 /* CoreBluetooth.framework in Frameworks */,
+				3C1CA99C20781EBB0045801F /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C1CA98420781EAB0045801F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C1CA99320781EAB0045801F /* CryptoSwift.framework */,
+				3C1CA99520781EAB0045801F /* CryptoSwift-TestHostApp.app */,
+				3C1CA99720781EAB0045801F /* Tests.xctest */,
+				3C1CA99920781EAB0045801F /* TestsPerformance.xctest */,
+				3C1CA99B20781EAB0045801F /* TestsPerformanceDevice.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3CF1C0612077B6FF0024F11D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +218,7 @@
 		7B8AEED61E34F2DC00B09856 = {
 			isa = PBXGroup;
 			children = (
+				3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */,
 				3CFCF76E2077F6A900CD46C4 /* Alamofire.xcodeproj */,
 				3CF1C0602077B6FF0024F11D /* BlueCapKit.xcodeproj */,
 				7B8AEEE11E34F2DC00B09856 /* SimpleBleCentral */,
@@ -213,6 +273,7 @@
 			dependencies = (
 				3CF1C0692077B7090024F11D /* PBXTargetDependency */,
 				3CFCF78A2077F6B500CD46C4 /* PBXTargetDependency */,
+				3C1CA99F20781EBB0045801F /* PBXTargetDependency */,
 			);
 			name = OticonBTLE;
 			productName = SimpleBleCentral;
@@ -261,6 +322,10 @@
 					ProductGroup = 3CF1C0612077B6FF0024F11D /* Products */;
 					ProjectRef = 3CF1C0602077B6FF0024F11D /* BlueCapKit.xcodeproj */;
 				},
+				{
+					ProductGroup = 3C1CA98420781EAB0045801F /* Products */;
+					ProjectRef = 3C1CA98320781EAB0045801F /* CryptoSwift.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -270,6 +335,42 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3C1CA99320781EAB0045801F /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = 3C1CA99220781EAB0045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA99520781EAB0045801F /* CryptoSwift-TestHostApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CryptoSwift-TestHostApp.app";
+			remoteRef = 3C1CA99420781EAB0045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA99720781EAB0045801F /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 3C1CA99620781EAB0045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA99920781EAB0045801F /* TestsPerformance.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TestsPerformance.xctest;
+			remoteRef = 3C1CA99820781EAB0045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA99B20781EAB0045801F /* TestsPerformanceDevice.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			name = TestsPerformanceDevice.xctest;
+			path = "TestsPerformance-iOS.xctest";
+			remoteRef = 3C1CA99A20781EAB0045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3CF1C0652077B6FF0024F11D /* BlueCapKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -354,6 +455,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3C1CA99F20781EBB0045801F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = 3C1CA99E20781EBB0045801F /* PBXContainerItemProxy */;
+		};
 		3CF1C0692077B7090024F11D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BlueCapKit;

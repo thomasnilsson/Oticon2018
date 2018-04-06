@@ -48,6 +48,44 @@
 		4ED105C01C315C420034D5D2 /* UInt32+Deserializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED105BF1C315C420034D5D2 /* UInt32+Deserializable.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3C1CA97920781EA60045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		3C1CA97B20781EA60045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 75211F92207249D8004E41F8;
+			remoteInfo = "CryptoSwift-TestHostApp";
+		};
+		3C1CA97D20781EA60045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		3C1CA97F20781EA60045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7595C14A2072E48C00EA1A5F;
+			remoteInfo = TestsPerformance;
+		};
+		3C1CA98120781EA60045801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7564F0602072EAEB00CA5A96;
+			remoteInfo = "TestsPerformance-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0551208219F5506000ED3B74 /* BlueCapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlueCapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0551208619F5506000ED3B74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,6 +127,7 @@
 		05D3B9431A2BA162008E794E /* Double+BlueCap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+BlueCap.swift"; sourceTree = "<group>"; };
 		05D3B9441A2BA162008E794E /* String+BlueCap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BlueCap.swift"; sourceTree = "<group>"; };
 		05FC0A0E1CC7CF5E0071BC8F /* Injectables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Injectables.swift; sourceTree = "<group>"; };
+		3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = ../CryptoSwift/CryptoSwift.xcodeproj; sourceTree = "<group>"; };
 		4ED105BF1C315C420034D5D2 /* UInt32+Deserializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt32+Deserializable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +147,7 @@
 		0551207819F5506000ED3B74 = {
 			isa = PBXGroup;
 			children = (
+				3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */,
 				055120F719F551CB00ED3B74 /* CoreBluetooth.framework */,
 				055120F519F551BB00ED3B74 /* CoreLocation.framework */,
 				0551208419F5506000ED3B74 /* BlueCapKit */,
@@ -256,6 +296,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3C1CA97220781EA60045801F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C1CA97A20781EA60045801F /* CryptoSwift.framework */,
+				3C1CA97C20781EA60045801F /* CryptoSwift-TestHostApp.app */,
+				3C1CA97E20781EA60045801F /* Tests.xctest */,
+				3C1CA98020781EA60045801F /* TestsPerformance.xctest */,
+				3C1CA98220781EA60045801F /* TestsPerformanceDevice.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -314,12 +366,57 @@
 			mainGroup = 0551207819F5506000ED3B74;
 			productRefGroup = 0551208319F5506000ED3B74 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3C1CA97220781EA60045801F /* Products */;
+					ProjectRef = 3C1CA97120781EA60045801F /* CryptoSwift.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0551208119F5506000ED3B74 /* BlueCapKit */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3C1CA97A20781EA60045801F /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = 3C1CA97920781EA60045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA97C20781EA60045801F /* CryptoSwift-TestHostApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "CryptoSwift-TestHostApp.app";
+			remoteRef = 3C1CA97B20781EA60045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA97E20781EA60045801F /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 3C1CA97D20781EA60045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA98020781EA60045801F /* TestsPerformance.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = TestsPerformance.xctest;
+			remoteRef = 3C1CA97F20781EA60045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3C1CA98220781EA60045801F /* TestsPerformanceDevice.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			name = TestsPerformanceDevice.xctest;
+			path = "TestsPerformance-iOS.xctest";
+			remoteRef = 3C1CA98120781EA60045801F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0551208019F5506000ED3B74 /* Resources */ = {

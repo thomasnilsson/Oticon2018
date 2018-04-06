@@ -5,6 +5,7 @@ import UIKit
 import BlueCapKit
 import CoreBluetooth
 import Alamofire
+import CryptoSwift
 
 class ViewController: UIViewController, UITextViewDelegate {
     
@@ -29,6 +30,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     
     var dataCharacteristic : Characteristic?
     var lastSentMessage = "NONE"
+    var lastHash = "NONE"
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -205,13 +207,18 @@ class ViewController: UIViewController, UITextViewDelegate {
             return;
         }
         //write a value to the characteristic
-        let writeFuture = self.dataCharacteristic?.write(data:text.data(using: .utf8)!)
         lastSentMessage = text
+        lastHash = text.sha256()
+        
+        let writeFuture = self.dataCharacteristic?.write(data:text.data(using: .utf8)!)
+        
+        
         writeFuture?.onSuccess(completion: { (_) in
             print("write succes")
             self.read()
             
         })
+        print("LAST HASH: ", lastHash)
         writeFuture?.onFailure(completion: { (e) in
             print("write failed")
         })
@@ -220,6 +227,7 @@ class ViewController: UIViewController, UITextViewDelegate {
     @IBAction func downloadPressed(_ sender: Any) {
         downloadFile()
     }
+
     
     func downloadFile() {
         Alamofire.request("https://httpbin.org/ip").response { response in

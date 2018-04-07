@@ -21,15 +21,20 @@
 
 	<article class="markdown-body">
 		<img src="img/logo.jpg" style="width:20%" />
-		<h3>TeamName';DROP TABLE Teams;--</h3>
-		<h6>Thomas Nilsson & Simon El-Nahas Christensen</h6>
+		<h1>Oticon Audio Explorers 2018 - Software Challenge</h1>
+		<p>TeamName';DROP TABLE Teams;--</p>
+		<p>
+			<b>Authors:</b>
+			<i>Thomas Nilsson & Simon El-Nahas Christensen</i>
+		</p>
 
-		<h1>Problem Statement</h1>
+
+		<h2>Problem Statement</h2>
 		When a new firmware update is available, the user has to plug their hearing device such as the Oticon OPN or the Oticon ClipConnect
 		into their computer and use the Genie 2 updater wizard in order to install the new firmware. This is a very involved process
 		regardless of who the end-user is, but the older end-user segment may especially find this step difficult to do themselves.
 
-		<h1>Solution Idea</h1>
+		<h2>Solution Idea: Wireless Distribution of Firmware</h2>
 		With the rise of IoT, devices are now able to exchange information in almost any way we can think of and as such a solution
 		has been derived which exclusively utilizes wireless communication in order to perform the firmware update. Additionally
 		the solution makes the firmware update process independent of user interaction which will ultimately make the user experience
@@ -83,34 +88,32 @@
 		remain open during the update.
 
 		<h4>Transferring Data via HTTPS and BLE</h4>
-		A concept application was made for this project which illustrates the possibility of transferring data from an API on the
-		internet to an iPhone via HTTPS, and then transfer the data from the iPhone to a BLE peripheral device, such as a hearing
-		aid. For this concept application a NodeJS script was used to emulate a BLE peripheral device with a laptop using Bluetooth.
-		The iOS application use the framework BlueCapKit (with CoreBluetooth) in order to interface with BLE devices, and the networking
-		framework Alamofire to make HTTP(S) requests to API’s.
-
-		<p>The project can be found in the following GitHub repository, under the folder BTLE.</p>
-
 		<p>
-			<b>How to run the project:</b>
+			A concept application was made for this project which illustrates the possibility of transferring data from an API on the
+			internet to an iPhone via HTTPS, and then transfer the data from the iPhone to a BLE peripheral device, such as a hearing
+			aid. For this concept application a NodeJS script was used to emulate a BLE peripheral device with a laptop using Bluetooth.
+			The iOS application use the framework BlueCapKit (with CoreBluetooth) in order to interface with BLE devices, and the
+			networking framework Alamofire to make HTTP(S) requests to API’s.
 		</p>
 
+		<p>The project containing the Bleno Node JS script and the XCode project can be found in this
+			<a href="https://github.com/thomasnilsson/Oticon2018">GitHub repository</a>, under the folder BTLE.</p>
+
 		<p>
-			<i>Install Node JS.</i>
+			<b>How to run the project with Node JS:</b>
 		</p>
 
-		<pre lang="no-highlight">
+		<pre lang="javascript">
 			<code>
-			npm install bleno
+npm install bleno
 
-			git clone https://github.com/sandeepmistry/bleno
+git clone https://github.com/sandeepmistry/bleno
 
-			cd bleno/examples/echo
+cd bleno/examples/echo
 
-			npm install --python=python2.7 
+npm install --python=python2.7 
 
-			node main.js
-			</code>
+node main.js</code>
 		</pre>
 
 		<p>
@@ -167,6 +170,8 @@
 
 	<article class="markdown-body">
 		<h1>Data Collection</h1>
+		<h5>NB: All plots are based on randomized dummy data.</h5>
+
 		<h4>Firmware Version Distribution</h4>
 		<p>
 			Not all users are going to update to the latest firmware for their devices, which can be due to not using the Oticon ON app
@@ -238,12 +243,31 @@
 			</div>
 		</div>
 
-		<h3>BONUS: Noise Level Observations in NYC</h3>
-		<h4>Idea</h4>
-		The Oticon ON application can utilize a mapping of noise levels to a geographical location and time of day to adjust the
-		selected programme, based on the user's location and the time of day. In practice an average noise level would likely not
-		be a good measurement to base the programmes on, but instead a prediction would be constantly made using device observations
-		with machine learning. By doing this the user experience will become even more seamless...
+		<h3>Further Development of Firmware and Oticon ON</h3>
+		<p>This idea is not necessarily related to distribution of firmware, but rather on how parts of the firmware on the devices
+			and the Oticon ON app can be used to improve the user experience in an innovative way.</p>
+
+		<h4>Mapping Programmes to Location and Time</h4>
+		<p>
+			Each user will have their own personal preferences in the Oticon ON application such as the shape of sound, and preferred
+			gain of low, mid and high-range frequencies, which may change based on where they are, i.e. a noisy or a quiet place,
+			but also what time of day it is. We will denote this general set of settings tied to a user a profile.
+		</p>
+		<p>
+			When devices are out in field they can measure noise levels, user’s personal weights which can be mapped to geographical
+			location and time of day using the ON app. By collecting this data and using machine learning algorithms such ordinary
+			linear regression or random forest we may very well be able to predict what settings would ideal for a specific user,
+			given their own profile and collection of how other Oticon user’s with similar profiles adjust their settings given a
+			location and time of day.
+
+		</p>
+		<p>
+			This solution would allow the hearing aid to become very autonomous and the user experience would become very seamless. The
+			concept could also be used for certain use cases with augmented reality, where the user does not necessarily have a hearing
+			problem, but would rather enhance their ability to hear by filtering out- or enhancing certain frequencies.
+		</p>
+
+		<h3>Noise Levels in NYC, Based on Time and GeoLocation</h3>
 		<h5>Tip:
 			<i>Use your cursor to mark an area of observations on the map.</i>
 		</h5>
@@ -252,9 +276,6 @@
 		<div align="right" id="chart2">
 		</div>
 
-
-
-		<h5>NB: All plots are based on randomized dummy data.</h5>
 	</article>
 
 

@@ -59,7 +59,7 @@
 
 	d3.csv("data/crashes.csv", parseRow, data => {
 
-		console.log(data)
+		// console.log(data)
 		// Find highest y value
 		var yMax = d3.max(data, d => d.counts)
 

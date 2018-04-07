@@ -61,22 +61,121 @@
 		</i>
 
 		<h3>Infrastructure Diagram</h3>
-		Below is shown an illustration of system infrastructure design, which includes using the smartphone as a middle-man for transferring firmware updates to the hearing devices
-		<div align="middle" style="width: 100%; height: 720px; margin: auto; position: relative;">
-			<iframe 
-				allowfullscreen frameborder="0" 
-				style="width:960px; height:720px" 
-				src="https://www.lucidchart.com/documents/embeddedchart/1fc4e74c-f4ff-4ee5-8de0-82373e71fb27"
-			    id="OxTqDbNE2t~W">
-			</iframe>
-		</div>
+		Below is shown an illustration of system infrastructure design, which includes using the smartphone as a middle-man for transferring
+		firmware updates to the hearing devices.
+
+		<img src="img/INFRASTRUCTURE.png" width="1300px" style="border: 1px solid gray">
+
+		<h3>Updating via Bluetooth and BLE</h3>
+		<h4>Oticon ClipConnect</h4>
+		The firmware size for the ClipConnect is unknown but is assumed to be within the same range as the OPN firm, i.e. less than
+		1 MB. With a regular Bluetooth connection with a theoretical transfer throughput of 24 MBit/s, the transfer time becomes
+		less than a second.
+
+		<h4>Oticon OPN (via BLE)</h4>
+		Transfer speed for Bluetooth Low Energy is around
+		<a href="https://punchthrough.com/blog/posts/maximizing-ble-throughput-on-ios-and-android">2.7 kbps</a>, which for a firmware update of 500KB gives a transfer time of ~25 minutes, if everything goes well. This
+		assumes the transfer is not interrupted, such as is the phone is turned off, bluetooth is turned off, or the phone is moved
+		outside the bluetooth range of the hearing aid. Another problem to consider when using the phone as a gateway to the internet
+		is that the Oticon ON app, as far as we can tell, has to be open due to Apple not allowing for Bluetooth transfers while
+		the
+		<a href="https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html ">application is not open</a>. This means that the user has to open up the ON app before going to bed, and the app has to
+		remain open during the update.
+
+		<h4>Transferring Data via HTTPS and BLE</h4>
+		A concept application was made for this project which illustrates the possibility of transferring data from an API on the
+		internet to an iPhone via HTTPS, and then transfer the data from the iPhone to a BLE peripheral device, such as a hearing
+		aid. For this concept application a NodeJS script was used to emulate a BLE peripheral device with a laptop using Bluetooth.
+		The iOS application use the framework BlueCapKit (with CoreBluetooth) in order to interface with BLE devices, and the networking
+		framework Alamofire to make HTTP(S) requests to API’s.
+
+		<p>The project can be found in the following GitHub repository, under the folder BTLE.</p>
+
+		<p>
+			<b>How to run the project:</b>
+		</p>
+
+		<p>
+			<i>Install Node JS.</i>
+		</p>
+
+		<pre lang="no-highlight">
+			<code>
+			npm install bleno
+
+			git clone https://github.com/sandeepmistry/bleno
+
+			cd bleno/examples/echo
+
+			npm install --python=python2.7 
+
+			node main.js
+			</code>
+		</pre>
+
+		<p>
+			<i>A BLE peripheral is now being simulated on your laptop.</i>
+		</p>
+
+		<p>
+			<i>A BLE peripheral is now being simulated on your laptop.</i>
+		</p>
+
+		<p>
+			<i>Install iOS application onto your phone with XCode.</i>
+		</p>
+
+
+		<h4>Power Concerns and User Experience</h4>
+		Neither the phone nor the hearing device should run out of power when updating and there a couple of ways to ensure this
+		does not happen. The phone battery will likely not be too affected by the firmware update, but a minimum requirement should
+		be that the power is above a certain battery level, e.g. 50% (as with iOS updates). Regarding the hearing device it should
+		be required to be charging, in order to ensure the power does not run out, as well as ensuring the user isn’t currently
+		using the device. To further ensure the latter an additional requirement can be put on the device, requiring it to be charging
+		as well as being at 100%, since it isn’t an ideal time to start updating the firmware if the user wants to quickly charge
+		the device in the middle of day because it is running low on power.
+
+		<h4>Ensuring Successful Updates</h4>
+		A firmware update is in essence a compiled binary file which can be sent via TCP which divides the file into packets, and
+		TCP is a protocol for ensuring every packet arrives if possible. The receiving end which in this case is the embedded device
+		will, by abiding by the TCP protocol, know if all packets have arrived. Here we assume the embedded device has a way of
+		temporarily storing the new firmware update while it is being transferred, and does not immediately start overwriting the
+		already installed firmware. This will in theory ensure that the currently installed firmware update will not be overwritten
+		with an incomplete firmware update.
+
+		<h4>Notifying Devices and Pushing Updates Globally</h4>
+		<p>The engineers of Oticon will be working actively on improving the firmware for the their audio devices, and when a new
+			version is ready it will likely be uploaded to a software repository with GIT. To let Oticon devices know that a new update
+			is ready the repository is scanned for changes every day by a service running on one of Oticon’s servers. This service
+			will also be responsible for notifying the users around the world that a new update is available, which will be done through
+			the Oticon ON app.</p>
+
+		<p>However it would be very inefficient if each user would try to download the firmware from the server at the same time,
+			and to alleviate the traffic a roll-out plan has to be established. The roll out plan will make sure that only at certain
+			amount of users are given access the new software update at any time. In practice the users would likely be divided into
+			batches based on their timezone which allows us to download the firmware package to the user’s phone before bedtime such
+			that the devices may be updated during the night.</p>
+
+		<p>Additionally, the user’s timezone gives us their geographical location by proxy, and if they update size was very big,
+			a possibility is to use the location in order to minimise the latency from user to server, by placing multiple software
+			repository servers around the globe and always have the Oticon ON app select the closest server. However since the firmware
+			packages are relatively small this is likely an unnecessary step.
+		</p>
+
 
 	</article>
 
 	<article class="markdown-body">
 		<h1>Data Collection</h1>
-		
-		<h3>Firmware Version Distribution</h3>
+		<h4>Firmware Version Distribution</h4>
+		<p>
+			Not all users are going to update to the latest firmware for their devices, which can be due to not using the Oticon ON app
+			or from not having access to data on their cell phone. To get an insight into the user base it would be of high relevance
+			to quantify the firmware distribution world wide, and perhaps map this with other user data (if available) such as country
+			and age group. As an example of it could be that users in a certain country have poor wireless and cellular coverage,
+			which makes them unable to fetch the updates. Another example related to age is if a certain age group does not use the
+			Oticon ON app, then updating the devices becomes hard to do wirelessly.
+		</p>
 
 		<div id="distributionPlot">
 			<div class="tooltip" id="tooltipDistribution" class="hidden">
@@ -91,10 +190,17 @@
 			</div>
 		</div>
 
-		<h3>Worldwide Device- and Firmware Distributions</h3>
+		<h5>Worldwide Device- and Firmware Distributions</h5>
 		<div id="worldMap"></div>
 
-		<h3>Firmware Update Failures</h3>
+		<h4>Failed Updates</h4>
+		<p>
+			Inevitably some firmware updates will fail to be installed which may be caused by a variety of reasons, such as incompatibility
+			with older devices. By gathering information on which versions fail, and perhaps implementing a logging system in the
+			ON app which provides greater insight into why a certain update failed to install will provide the Oticon engineers with
+			very valuable insight.
+		</p>
+
 		<div id="crashPlot">
 			<div class="tooltip" id="tooltipCrashes" class="hidden">
 				<p>
@@ -108,13 +214,36 @@
 			</div>
 		</div>
 
+		<h4>Usage as a Success Metric</h4>
+		<p>
+			It can be hard to quantify how much a user likes a product but quantifying how much they use a product is a good alternative.
+			Usage can be a product of many things: hours active, how often the programme is changed, how much users use the hearing
+			aid while being physically active and much more. We will not go into too much detail on how to define usage, but instead
+			provide the idea that it can be relevant to look at average usage mapped to a firmware update. The goal of updating firmware
+			is to make the user experience better, and if usage goes up after a firmware update then the update would be considered
+			a success, whereas if it goes down it would be considered a failure. In the real world the result would likely often be
+			closer to neutral than radical changes however.
+		</p>
+
+		<div id="usagePlot">
+			<div class="tooltip" id="tipUsage" class="hidden">
+				<p>
+					<strong style="color: #FFA500">Time: </strong>
+					<span id="usageTime" />
+				</p>
+				<p>
+					<strong style="color: #FFA500">Usage: </strong>
+					<span id="usageValue" />
+				</p>
+			</div>
+		</div>
 
 		<h3>BONUS: Noise Level Observations in NYC</h3>
 		<h4>Idea</h4>
-		The Oticon ON application can utilize a mapping of noise levels to a geographical location and time of day to adjust the selected programme, based on the user's location and the time of day. 
-		In practice an average noise level would likely not be a good measurement to base the programmes on, but instead a prediction would be constantly made using device observations with machine learning.
-
-		By doing this the user experience will become even more seamless...
+		The Oticon ON application can utilize a mapping of noise levels to a geographical location and time of day to adjust the
+		selected programme, based on the user's location and the time of day. In practice an average noise level would likely not
+		be a good measurement to base the programmes on, but instead a prediction would be constantly made using device observations
+		with machine learning. By doing this the user experience will become even more seamless...
 		<h5>Tip:
 			<i>Use your cursor to mark an area of observations on the map.</i>
 		</h5>
@@ -122,6 +251,8 @@
 		</div>
 		<div align="right" id="chart2">
 		</div>
+
+
 
 		<h5>NB: All plots are based on randomized dummy data.</h5>
 	</article>
@@ -131,6 +262,7 @@
 <script src="js/noise.js"></script>
 <script src="js/distribution.js"></script>
 <script src="js/crashes.js"></script>
+<script src="js/usage.js"></script>
 
 <!-- MAP Scripts -->
 <script src="https://d3js.org/queue.v1.min.js"></script>

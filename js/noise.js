@@ -57,7 +57,7 @@ function run() {
 
 	//Load in GeoJSON data
 	d3.json("data/boroughs.geojson", (error, json) => {
-		if (error) console.log("error fetching data")
+		// if (error) console.log("error fetching data")
 
 		//Bind data and create one path per GeoJSON feature
 		svgGeo.selectAll("path")

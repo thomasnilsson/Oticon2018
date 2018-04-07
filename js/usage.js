@@ -3,25 +3,25 @@
 		margins = {bottom: h - 50, top: 20, left: 50, right: w - 150},
 		animationTime = 1000,
 		body = d3.select("body"),
-		div = body.select("#distributionPlot"),
-		tooltip = d3.select("#tooltipDistribution")
+		div = body.select("#usagePlot"),
+		tooltip = d3.select("#tipUsage")
 			.classed("hidden", true),
 		title = div.append("h4"),
 		svg = div.append("svg")
 			.attr("width", w)
 			.attr("height", h),
-		normalColor = "#CC1070",
+		normalColor = "#55AAFF",
 		hoverColor = "#FFA500"
 		
-
+	const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 	var parseRow = row => {
 	  return {
-	    "version" : row.version,
+	    "time" : row.time,
 	    "counts" : +row.counts
 	  }
 	}
 
-	var innerPadding = 0.5, categoryIndex = 0,
+	var innerPadding = 0.2, categoryIndex = 0,
 		x, y, xAxis, yAxis, months, dataset
 
 	var handleMouseOver = (rect, d) => {
@@ -33,11 +33,11 @@
 		tooltip.style("left", xPos + "px").style("top", yPos + "px")
 
 		// Update the tooltip information
-		d3.select("#distributionVersion")
-			.text(d.version)
+		d3.select("#usageTime")
+			.text(weekdays[d.time.getDay()] + ", " + d.time.getHours() + ":00")
 
-		d3.select("#distributionPercentage")
-			.text(parseInt(d.percentage) + "%")
+		d3.select("#usageValue")
+			.text(parseInt(d.usage) + "%")
 
 		// Show the tooltip
 		tooltip.classed("hidden", false)
@@ -57,39 +57,34 @@
 			.attr("fill", normalColor)
 	}
 
-	let max = 1000000
+	let max = 100
 
-	let data = [
-		{"version" : "1.3", "count" : parseInt(Math.random() * max)},
-		{"version" : "1.4", "count" : parseInt(Math.random() * max)},
-		{"version" : "1.5", "count" : parseInt(Math.random() * max)},
-		{"version" : "1.6", "count" : parseInt(Math.random() * max)},
-		{"version" : "1.7", "count" : parseInt(Math.random() * max)},
-		{"version" : "2.0", "count" : parseInt(Math.random() * max)},
-		{"version" : "2.1", "count" : parseInt(Math.random() * max)},
-		{"version" : "2.2", "count" : parseInt(Math.random() * max)},
-		{"version" : "2.3", "count" : parseInt(Math.random() * max)},
-	]
+	let startDate = new Date("Mon Apr 02 2018 00:00")
 
-	let reducer = (sum,d) => sum + d.count
-	let totalCounts = data.reduce(reducer, 0)
-	// console.log(totalCounts)	
-	data.forEach(d => d['percentage'] = 100 * d.count / totalCounts)
+	let data = Array(24*7).fill(0).map(
+			(d,i) => {
+			let dateCopy = new Date(startDate)
+			let dateTime = dateCopy.setHours(dateCopy.getHours() + i)
+			let time = new Date(dateTime)
+			let usage = parseInt(Math.random() * max)
+			return {"time" : time, "usage" : usage}
+		}
+	)
 	// console.log(data)
 
 	// Find highest y value
-	var yMax = d3.max(data, d => d.percentage)
+	var yMax = d3.max(data, d => d.usage)
 
 	// Find the x domain, the result here is: [Jan, Feb, Mar... Dec]
-	var versions = data.map(d => d.version)
+	var timevalues = data.map(d => d.time)
 
 	// x Scale
 	x = d3.scaleBand()
-		.domain(versions)
+		.domain(timevalues)
 		.rangeRound([margins.left, margins.right])
 		.paddingInner(innerPadding)
 
-	xAxis = d3.axisBottom(x)
+	xAxis = d3.axisBottom(x).ticks(7)
 
 	// y Scale
 	y = d3.scaleLinear()
@@ -103,10 +98,10 @@
 	.data(data)
 	.enter()
 	.append("rect")
-	.attr("x", d => x(d.version))
-	.attr("y", d =>  y(d.percentage))
+	.attr("x", d => x(d.time))
+	.attr("y", d =>  y(d.usage))
 	.attr("width", x.bandwidth())
-	.attr("height", d => margins.bottom - y(d.percentage))
+	.attr("height", d => margins.bottom - y(d.usage))
 	.attr("fill", normalColor)
 		.on("mouseover", function(d) {
 			handleMouseOver(this, d)
@@ -132,7 +127,7 @@
 		.style("text-anchor", "middle")
 		.attr("y", margins.left/2 - 10)
 		.attr("x", -h/2)
-		.text("Percentage Share")
+		.text("Average Usage Percentage")
 
 	// Text label for the y axis
 	svg.append("text")
@@ -140,6 +135,6 @@
 		.style("text-anchor", "middle")
 		.attr("y", margins.bottom + 40)
 		.attr("x", w/2)
-		.text("Firmware Version")
+		.text("Time of the Week")
 
 })()

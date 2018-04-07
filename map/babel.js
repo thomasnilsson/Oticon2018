@@ -140,9 +140,9 @@ function ready(error, geography, data) {
   const numberOfClasses = color.range().length - 1;
   const ckmeansClusters = ss.ckmeans(data.map(d => d[colorVariable]), numberOfClasses);
   const ckmeansBreaks = ckmeansClusters.map(d => d3.min(d));
-  console.log('numberOfClasses', numberOfClasses);
-  console.log('ckmeansClusters', ckmeansClusters);
-  console.log('ckmeansBreaks', ckmeansBreaks);
+  // console.log('numberOfClasses', numberOfClasses);
+  // console.log('ckmeansClusters', ckmeansClusters);
+  // console.log('ckmeansBreaks', ckmeansBreaks);
 
   // set the domain of the color scale based on our data
   color

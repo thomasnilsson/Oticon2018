@@ -52,40 +52,43 @@
 		</ul>
 
 		<h3>Proposed Solution</h3>
-		<h5>Update only while devices are charging</h5>
-		<i>Ensures the user is not interrupted while already using the devices
+		<h4>Update only while devices are charging</h4>
+		<i>Ensures the user is not interrupted while already using the devices.
 			<br>
 		</i>
 
-		<h5>Download firmware update from an Oticon-owned GIT repository to the user’s smartphone through the Oticon ON application</h5>
-		<i>Ensures the integrity of the software, i.e. it was developed and approved by Oticon</i>
+		<h4>Download firmware update from an Oticon-owned GIT repository to the user’s smartphone through the Oticon ON application</h4>
+		<i>Ensures the integrity of the software, i.e. it was developed and approved by Oticon.</i>
 
-		<h5>Transfer software via TCP over Bluetooth to the devices</h5>
-		<i>Ensures that the whole firmware package is transferred to the audio device (TCP), and a seamless user experience when updating
-			firmware
+		<h4>Transfer software via TCP over Bluetooth/BLE to the hearing devices</h4>
+		<i>Ensures that the whole firmware package is transferred to the audio device (TCP), such that the device doesn't install a corrupted firmware update, in addition to providing a seamless user experience.
 		</i>
 
 		<h3>Infrastructure Diagram</h3>
 		Below is shown an illustration of system infrastructure design, which includes using the smartphone as a middle-man for transferring
 		firmware updates to the hearing devices.
 
-		<img src="img/INFRASTRUCTURE.png" width="1300px" style="border: 1px solid gray">
+		<img src="img/INFRASTRUCTURE.png" width="1300px">
 
 		<h3>Updating via Bluetooth and BLE</h3>
-		<h4>Oticon ClipConnect</h4>
-		The firmware size for the ClipConnect is unknown but is assumed to be within the same range as the OPN firm, i.e. less than
+		<h4>Oticon ClipConnect (via Bluetooth 4.0)</h4>
+		The firmware size for the ClipConnect is unknown but is assumed to be within the same range as the OPN firmware, i.e. less than
 		1 MB. With a regular Bluetooth connection with a theoretical transfer throughput of 24 MBit/s, the transfer time becomes
 		less than a second.
 
 		<h4>Oticon OPN (via BLE)</h4>
-		Transfer speed for Bluetooth Low Energy is around
-		<a href="https://punchthrough.com/blog/posts/maximizing-ble-throughput-on-ios-and-android">2.7 kbps</a>, which for a firmware update of 500KB gives a transfer time of ~25 minutes, if everything goes well. This
-		assumes the transfer is not interrupted, such as is the phone is turned off, bluetooth is turned off, or the phone is moved
-		outside the bluetooth range of the hearing aid. Another problem to consider when using the phone as a gateway to the internet
-		is that the Oticon ON app, as far as we can tell, has to be open due to Apple not allowing for Bluetooth transfers while
-		the
-		<a href="https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html ">application is not open</a>. This means that the user has to open up the ON app before going to bed, and the app has to
-		remain open during the update.
+		<p>
+			Transfer speed for Bluetooth Low Energy is around
+			<a href="https://punchthrough.com/blog/posts/maximizing-ble-throughput-on-ios-and-android">2.7 kbps</a>, which for a firmware update of 500KB gives a transfer time of ~25 minutes, if everything goes well. This
+			assumes the transfer is not interrupted, such as is the phone is turned off, bluetooth is turned off, or the phone is moved
+			outside the bluetooth range of the hearing aid. Another problem to consider when using the phone as a gateway to the internet
+			is that the Oticon ON app, as far as we can tell, has to be open due to Apple not allowing for Bluetooth transfers while
+			the
+			<a href="https://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/CoreBluetooth_concepts/CoreBluetoothBackgroundProcessingForIOSApps/PerformingTasksWhileYourAppIsInTheBackground.html ">application is not open</a>. This means that the user has to open up the ON app before going to bed, and the app has to
+			remain open during the update.
+		</p>
+
+		<div align="center"><img src="img/sleep.jpg" width="400px"></div>
 
 		<h4>Transferring Data via HTTPS and BLE</h4>
 		<p>
@@ -132,6 +135,20 @@ node main.js</code>
 		<p>
 			<i>Install iOS application onto your phone with XCode.</i>
 		</p>
+
+		<div align="center"><img src="img/appdiagram.png"></div>
+
+		<h4>Application in Action</h4>
+		<p>Below is shown a few screenshots from the application in action:</p>
+		<ul>
+			<li>The app searches for nearby Bluetooth Low Energy peripherals</li>
+			<li>Once it finds the MacBook the main screen is shown</li>
+			<li>The "Send Data from API" button is pressed, and a HTTPS request is made with Alamofire</li>
+			<li>Here the API used is <a href="https://httpbin.org/ip">httpbin.org/ip</a> which returns a JSON object containing the caller's IP address</li>
+			<li>Once the JSON data is received by the application, the data is sent to the peripheral</li>
+		</ul>
+		<div align="center"><img src="img/oticonapp.png"></div>
+		
 
 
 		<h4>Power Concerns and User Experience</h4>

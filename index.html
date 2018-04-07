@@ -97,22 +97,27 @@
 		</p>
 
 		<p>The project containing the Bleno Node JS script and the XCode project can be found in this
-			<a href="https://github.com/thomasnilsson/Oticon2018">GitHub repository</a>, under the folder BTLE.</p>
+			<a href="https://github.com/thomasnilsson/OticonBluetooth">GitHub repository</a>, under the folder BTLE.</p>
 
 		<p>
 			<b>How to run the project with Node JS:</b>
 		</p>
-
+<p>(Only works on a device with BLE, such as a laptop from 2012 or later)</p>
 		<pre lang="javascript">
 			<code>
-npm install bleno
+# Install Bleno
+sudo npm install bleno
 
-git clone https://github.com/sandeepmistry/bleno
+# Clone the repo
+https://github.com/thomasnilsson/OticonBluetooth
 
-cd bleno/examples/echo
+# Go to the script folder
+cd OticonBluetooth/bleno/examples/echo
 
-npm install --python=python2.7 
+# Install all messing dependencies, only works with python 2.7
+sudo npm install --python=python2.7 
 
+# Run the script
 node main.js</code>
 		</pre>
 
@@ -233,11 +238,11 @@ node main.js</code>
 		<div id="usagePlot">
 			<div class="tooltip" id="tipUsage" class="hidden">
 				<p>
-					<strong style="color: #FFA500">Time: </strong>
-					<span id="usageTime" />
+					<strong style="color: #FFA500">Version: </strong>
+					<span id="usageVersion" />
 				</p>
 				<p>
-					<strong style="color: #FFA500">Usage: </strong>
+					<strong style="color: #FFA500">Usage Metric: </strong>
 					<span id="usageValue" />
 				</p>
 			</div>

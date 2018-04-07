@@ -1,7 +1,7 @@
 (function() {
 	var h = 300, w = 1200,
 		margins = {bottom: h - 50, top: 20, left: 50, right: w - 150},
-		animationTime = 1000,
+		animationversion = 1000,
 		body = d3.select("body"),
 		div = body.select("#usagePlot"),
 		tooltip = d3.select("#tipUsage")
@@ -13,15 +13,14 @@
 		normalColor = "#55AAFF",
 		hoverColor = "#FFA500"
 		
-	const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 	var parseRow = row => {
 	  return {
-	    "time" : row.time,
+	    "version" : row.version,
 	    "counts" : +row.counts
 	  }
 	}
 
-	var innerPadding = 0.2, categoryIndex = 0,
+	var innerPadding = 0.5, categoryIndex = 0,
 		x, y, xAxis, yAxis, months, dataset
 
 	var handleMouseOver = (rect, d) => {
@@ -33,8 +32,8 @@
 		tooltip.style("left", xPos + "px").style("top", yPos + "px")
 
 		// Update the tooltip information
-		d3.select("#usageTime")
-			.text(weekdays[d.time.getDay()] + ", " + d.time.getHours() + ":00")
+		d3.select("#usageVersion")
+			.text(d.version)
 
 		d3.select("#usageValue")
 			.text(parseInt(d.usage) + "%")
@@ -59,28 +58,28 @@
 
 	let max = 100
 
-	let startDate = new Date("Mon Apr 02 2018 00:00")
-
-	let data = Array(24*7).fill(0).map(
-			(d,i) => {
-			let dateCopy = new Date(startDate)
-			let dateTime = dateCopy.setHours(dateCopy.getHours() + i)
-			let time = new Date(dateTime)
-			let usage = parseInt(Math.random() * max)
-			return {"time" : time, "usage" : usage}
-		}
-	)
+	let data = [
+		{"version" : "1.3", "usage" : parseInt(Math.random() * max)},
+		{"version" : "1.4", "usage" : parseInt(Math.random() * max)},
+		{"version" : "1.5", "usage" : parseInt(Math.random() * max)},
+		{"version" : "1.6", "usage" : parseInt(Math.random() * max)},
+		{"version" : "1.7", "usage" : parseInt(Math.random() * max)},
+		{"version" : "2.0", "usage" : parseInt(Math.random() * max)},
+		{"version" : "2.1", "usage" : parseInt(Math.random() * max)},
+		{"version" : "2.2", "usage" : parseInt(Math.random() * max)},
+		{"version" : "2.3", "usage" : parseInt(Math.random() * max)},
+	]
 	// console.log(data)
 
 	// Find highest y value
 	var yMax = d3.max(data, d => d.usage)
 
 	// Find the x domain, the result here is: [Jan, Feb, Mar... Dec]
-	var timevalues = data.map(d => d.time)
+	var versionvalues = data.map(d => d.version)
 
 	// x Scale
 	x = d3.scaleBand()
-		.domain(timevalues)
+		.domain(versionvalues)
 		.rangeRound([margins.left, margins.right])
 		.paddingInner(innerPadding)
 
@@ -98,7 +97,7 @@
 	.data(data)
 	.enter()
 	.append("rect")
-	.attr("x", d => x(d.time))
+	.attr("x", d => x(d.version))
 	.attr("y", d =>  y(d.usage))
 	.attr("width", x.bandwidth())
 	.attr("height", d => margins.bottom - y(d.usage))
@@ -135,6 +134,6 @@
 		.style("text-anchor", "middle")
 		.attr("y", margins.bottom + 40)
 		.attr("x", w/2)
-		.text("Time of the Week")
+		.text("version of the Week")
 
 })()
